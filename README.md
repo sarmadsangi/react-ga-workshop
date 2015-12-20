@@ -5,7 +5,8 @@
 ```
 npm install
 npm install webpack -g
-npm start
+npm run build
+npm run start
 ```
 
 - Check package.json for more information

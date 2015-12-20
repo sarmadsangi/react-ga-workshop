@@ -19904,7 +19904,14 @@
 	      { className: 'title' },
 	      props.displayname
 	    ),
-	    _react2['default'].createElement('img', { src: props.avatarurlmedium })
+	    _react2['default'].createElement(
+	      'p',
+	      { className: 'title' },
+	      '@',
+	      props.username
+	    ),
+	    _react2['default'].createElement('img', { className: 'bgImg', src: props.avatarurlmedium }),
+	    _react2['default'].createElement('img', { className: 'profileImg', src: props.avatarurlmedium })
 	  );
 	};
 
