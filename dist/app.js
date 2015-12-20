@@ -52,7 +52,7 @@
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -85,7 +85,7 @@
 	    _get(Object.getPrototypeOf(App.prototype), 'constructor', this).call(this, props);
 
 	    this.state = {
-	      searchingFor: '',
+	      loading: true,
 	      users: []
 	    };
 	  }
@@ -93,46 +93,75 @@
 	  // Mounting App
 
 	  _createClass(App, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.getUserList();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
 	        'div',
 	        { className: 'appWrapper' },
-	        _react2['default'].createElement(_componentsSearchBox2['default'], { whenUserTypes: this.whenUserTypes.bind(this) }),
-	        this.getSearchingForDOM(),
+	        _react2['default'].createElement(_componentsSearchBox2['default'], { onChange: this.onChange.bind(this) }),
+	        this.getLoading(),
 	        _react2['default'].createElement(_componentsSearchResult2['default'], { users: this.state.users })
 	      );
 	    }
 	  }, {
-	    key: 'whenUserTypes',
-	    value: function whenUserTypes(e) {
+	    key: 'onChange',
+	    value: function onChange(e) {
 	      var query = e.target.value ? '?username=' + e.target.value : '';
-	      var that = this;
 
 	      this.setState({
-	        searchingFor: query
+	        loading: true
 	      });
 
-	      fetch('https://api.fieldbook.com/v1/5676d9a0be5b1f03002f63e9/ga_students_wdi_sg_discussions' + query).then(function (response) {
+	      this.getUserList(query);
+	    }
+	  }, {
+	    key: 'getUserList',
+	    value: function getUserList() {
+	      var query = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+
+	      var fieldbookApiUrl = 'https://api.fieldbook.com/v1/5676d9a0be5b1f03002f63e9/ga_students_wdi_sg_discussions' + query;
+	      var that = this;
+
+	      fetch(fieldbookApiUrl).then(function (response) {
 	        return response.json();
 	      }).then(function (result) {
 	        that.setState({
-	          searchingFor: '',
+	          loading: false,
 	          users: result
 	        });
 	      });
 	    }
 	  }, {
-	    key: 'getSearchingForDOM',
-	    value: function getSearchingForDOM() {
-	      var searchingFor = this.state.searchingFor;
+	    key: 'getLoading',
+	    value: function getLoading() {
+	      var _state = this.state;
+	      var loading = _state.loading;
+	      var users = _state.users;
 
-	      if (searchingFor) {
+	      if (loading) {
 	        return _react2['default'].createElement(
 	          'div',
 	          null,
-	          'Searching for ... ',
-	          searchingFor
+	          'Loading ...'
+	        );
+	      } else if (!loading && users.length === 0) {
+	        return _react2['default'].createElement(
+	          'div',
+	          null,
+	          'Nothing found, try again'
+	        );
+	      } else {
+	        return _react2['default'].createElement(
+	          'div',
+	          null,
+	          'Found ',
+	          users.length,
+	          ' users'
 	        );
 	      }
 
@@ -19758,8 +19787,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	// SearchBox Component
-
 	var SearchBox = (function (_Component) {
 	  _inherits(SearchBox, _Component);
 
@@ -19777,7 +19804,7 @@
 	      return _react2['default'].createElement(
 	        'div',
 	        { className: 'searchbox' },
-	        _react2['default'].createElement('input', { onChange: (_context = this.props).whenUserTypes.bind(_context), type: 'text', placeholder: 'Search for wdi-sg-discussions gitter usernames' })
+	        _react2['default'].createElement('input', { onChange: (_context = this.props).onChange.bind(_context), type: 'text', placeholder: 'Search for wdi-sg-discussions gitter usernames' })
 	      );
 	    }
 	  }]);
