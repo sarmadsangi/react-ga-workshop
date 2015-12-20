@@ -2,9 +2,11 @@
 
 ## How to run ?
 
-`npm install`
-`npm install webpack -g`
-`npm start`
+```
+npm install
+npm install webpack -g
+npm start
+```
 
 - Check package.json for more information
 
