@@ -9,6 +9,9 @@ export default class App extends Component {
   constructor (props) {
     super(props)
 
+    this.baseUrl = 'https://api.fieldbook.com/v1/5676d9a0be5b1f03002f63e9/'
+    this.sheetName = 'ga_students_wdi_sg_discussions'
+
     this.state = {
       loading: true,
       users: [],
@@ -40,10 +43,11 @@ export default class App extends Component {
   }
 
   getUserList (query = '') {
-    const fieldbookApiUrl = 'https://api.fieldbook.com/v1/5676d9a0be5b1f03002f63e9/ga_students_wdi_sg_discussions' + query
+    const apiUrl = this.baseUrl + this.sheetName + query
+
     var that = this
 
-    fetch(fieldbookApiUrl)
+    fetch(apiUrl)
       .then(function (response) {
         return response.json()
       }).then(function (result) {

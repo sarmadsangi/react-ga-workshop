@@ -84,6 +84,9 @@
 
 	    _get(Object.getPrototypeOf(App.prototype), 'constructor', this).call(this, props);
 
+	    this.baseUrl = 'https://api.fieldbook.com/v1/5676d9a0be5b1f03002f63e9/';
+	    this.sheetName = 'ga_students_wdi_sg_discussions';
+
 	    this.state = {
 	      loading: true,
 	      users: []
@@ -124,10 +127,11 @@
 	    value: function getUserList() {
 	      var query = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
 
-	      var fieldbookApiUrl = 'https://api.fieldbook.com/v1/5676d9a0be5b1f03002f63e9/ga_students_wdi_sg_discussions' + query;
+	      var apiUrl = this.baseUrl + this.sheetName + query;
+
 	      var that = this;
 
-	      fetch(fieldbookApiUrl).then(function (response) {
+	      fetch(apiUrl).then(function (response) {
 	        return response.json();
 	      }).then(function (result) {
 	        that.setState({
