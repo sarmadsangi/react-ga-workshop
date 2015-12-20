@@ -2,7 +2,7 @@
   "name": "react-ga-workshop",
   "version": "1.0.0",
   "scripts": {
-    "start": "webpack && http-server"
+    "start": "http-server"
   },
   "dependencies": {
     "babel": "5.8.21",
