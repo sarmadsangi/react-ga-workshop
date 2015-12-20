@@ -1,5 +1,8 @@
 # ReactJS General Assembly Workshop
 
+Deployed @ [https://react-ga-workshop.herokuapp.com/](https://react-ga-workshop.herokuapp.com/)
+
+
 ## How to run ?
 
 ```
