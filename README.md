@@ -16,7 +16,7 @@ npm run start
 
 ## Want to create your API ?
 
-For this project we are using [Fieldbook](https://fieldbook.com/) to simulate a public api. I exported usernames from [Gitter wdi-sg-discussions](https://gitter.im/ga-students/wdi-sg-discussions) and uploaded them to [Fieldbook](https://fieldbook.com/) to create a REST API out of it. What to create your own API ? Its easy stuff here is how to do it,
+For this project we are using [Fieldbook](https://fieldbook.com/) to simulate a public api. I exported usernames from [Gitter wdi-sg-discussions](https://gitter.im/ga-students/wdi-sg-discussions) and uploaded them to [Fieldbook](https://fieldbook.com/) to create a REST API out of it. Want to create your own API ? Its easy stuff ... here is how to do it,
 
 - Goto [Fieldbook](https://fieldbook.com/) and Sign Up (its free)
 - Once you are in, create a sheet (Sheet=Excel Stuff) by clicking `Add Sheet` (normally there would be default sheet that you can use)
